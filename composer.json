@@ -1,0 +1,32 @@
+{
+    "name": "capsulecmdr/seat-pm",
+    "description": "SeAT-PM: A project management plugin for SeAT enabling personal, corporation, and alliance-level project tracking and task management.",
+    "type": "seat-plugin",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "John Little",
+        "email": "jwlittle13@gmail.com"
+      }
+    ],
+    "require": {
+      "php": "^8.1",
+      "illuminate/support": "^10.0",
+      "laravel/framework": "^10.0"
+    },
+    "autoload": {
+      "psr-4": {
+        "CapsuleCmdr\\SeATPM\\": "src/"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "CapsuleCmdr\\SeATPM\\SeATPMServiceProvider"
+        ]
+      }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+  }
+  
