@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This plugin is still under active development and SHOULD NOT BE USED in a production environment
+
 # SeAT-PM — Project Management Plugin for SeAT
 
 SeAT-PM is a feature-rich project management plugin for SeAT (Simple EVE API Tool). It enables users to create, manage, and track projects and tasks across personal, corporate, and alliance scopes — all within the familiar SeAT interface.
