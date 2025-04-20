@@ -2,13 +2,14 @@
 
 namespace CapsuleCmdr\SeATPM;
 
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Gate;
 use CapsuleCmdr\SeATPM\Models\Project;
 use CapsuleCmdr\SeATPM\Models\Task;
 use CapsuleCmdr\SeATPM\Models\Comment;
 use CapsuleCmdr\SeATPM\Policies\ProjectPolicy;
 use CapsuleCmdr\SeATPM\Policies\TaskPolicy;
 use CapsuleCmdr\SeATPM\Policies\CommentPolicy;
-use Illuminate\Support\Facades\Gate;
 use Seat\Services\AbstractSeatPlugin;
 
 class SeATPMServiceProvider extends AbstractSeatPlugin
@@ -18,12 +19,13 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         $this->addRoutes();
         $this->addViews();
         $this->addMigrations();
-        $this->addPublications();
 
+        // Register policies
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
+        // Register menu
         if (function_exists('menu')) {
             menu()->register('SeAT-PM', [
                 'name' => 'SeAT-PM',
@@ -63,21 +65,14 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
-    private function addPublications()
-    {
-        $this->publishes([
-            __DIR__ . '/../config/seatpm.php' => config_path('seatpm.php'),
-        ], 'seatpm');
-    }
-
     public function getName(): string
     {
-        return 'Project Manager';
+        return 'SeAT-PM';
     }
 
-    public function getPackageRepositoryUrl(): string
+    public function getPackagistVendorName(): string
     {
-        return 'https://github.com/capsulecmdr/seat-pm';
+        return 'capsulecmdr';
     }
 
     public function getPackagistPackageName(): string
@@ -85,8 +80,8 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         return 'seat-pm';
     }
 
-    public function getPackagistVendorName(): string
+    public function getPackageRepositoryUrl(): string
     {
-        return 'capsulecmdr';
+        return 'https://github.com/capsulecmdr/seat-pm';
     }
 }
