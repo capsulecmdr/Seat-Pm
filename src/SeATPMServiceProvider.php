@@ -18,18 +18,20 @@ class SeATPMServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $basePath = dirname(__DIR__);
+
         // Load routes
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadRoutesFrom($basePath . '/routes/web.php');
 
         // Load views
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
+        $this->loadViewsFrom($basePath . '/resources/views', 'seatpm');
 
         // Load migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom($basePath . '/database/migrations');
 
         // Publish config
         $this->publishes([
-            __DIR__ . '/../config/seatpm.php' => config_path('seatpm.php'),
+            $basePath . '/config/seatpm.php' => config_path('seatpm.php'),
         ], 'seatpm');
 
         // Register policies
@@ -63,7 +65,7 @@ class SeATPMServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/seatpm.php',
+            dirname(__DIR__) . '/config/seatpm.php',
             'seatpm'
         );
     }
