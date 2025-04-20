@@ -2,7 +2,6 @@
 
 namespace CapsuleCmdr\SeATPM;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Gate;
 use CapsuleCmdr\SeATPM\Models\Project;
 use CapsuleCmdr\SeATPM\Models\Task;
@@ -16,7 +15,7 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 {
     public function boot(): void
     {
-        $this->bootRoutes(); // <--- THIS IS CRITICAL for SeAT plugins using AbstractSeatPlugin
+        $this->addRoutes();
         $this->addViews();
         $this->addMigrations();
 
@@ -39,24 +38,29 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
             ]);
         }
 
+        // Register permissions
         if (function_exists('permission')) {
             permission()->register('seatpm.super', 'View all projects across visibility scopes');
             permission()->register('seatpm.projects.create', 'Create new projects');
         }
     }
 
-
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php', 'seatpm');
     }
 
-    private function addViews()
+    private function addRoutes(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+    }
+
+    private function addViews(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
     }
 
-    private function addMigrations()
+    private function addMigrations(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
