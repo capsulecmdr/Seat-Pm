@@ -2,44 +2,28 @@
 
 namespace CapsuleCmdr\SeATPM;
 
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
 use CapsuleCmdr\SeATPM\Models\Project;
 use CapsuleCmdr\SeATPM\Models\Task;
 use CapsuleCmdr\SeATPM\Models\Comment;
 use CapsuleCmdr\SeATPM\Policies\ProjectPolicy;
 use CapsuleCmdr\SeATPM\Policies\TaskPolicy;
 use CapsuleCmdr\SeATPM\Policies\CommentPolicy;
+use Illuminate\Support\Facades\Gate;
+use Seat\Services\AbstractSeatPlugin;
 
-class SeATPMServiceProvider extends ServiceProvider
+class SeATPMServiceProvider extends AbstractSeatPlugin
 {
-    /**
-     * Bootstrap plugin services.
-     */
     public function boot(): void
     {
-        $basePath = dirname(__DIR__);
+        $this->addRoutes();
+        $this->addViews();
+        $this->addMigrations();
+        $this->addPublications();
 
-        // Load routes
-        $this->loadRoutesFrom($basePath . '/routes/web.php');
-
-        // Load views
-        $this->loadViewsFrom($basePath . '/resources/views', 'seatpm');
-
-        // Load migrations
-        $this->loadMigrationsFrom($basePath . '/database/migrations');
-
-        // Publish config
-        $this->publishes([
-            $basePath . '/config/seatpm.php' => config_path('seatpm.php'),
-        ], 'seatpm');
-
-        // Register policies
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
-        // Register menu & permissions if SeAT menu system is available
         if (function_exists('menu')) {
             menu()->register('SeAT-PM', [
                 'name' => 'SeAT-PM',
@@ -59,14 +43,50 @@ class SeATPMServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register bindings and configuration.
-     */
     public function register(): void
     {
-        $this->mergeConfigFrom(
-            dirname(__DIR__) . '/config/seatpm.php',
-            'seatpm'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php', 'seatpm');
+    }
+
+    private function addRoutes()
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+    }
+
+    private function addViews()
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
+    }
+
+    private function addMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
+    private function addPublications()
+    {
+        $this->publishes([
+            __DIR__ . '/../config/seatpm.php' => config_path('seatpm.php'),
+        ], 'seatpm');
+    }
+
+    public function getName(): string
+    {
+        return 'Project Manager';
+    }
+
+    public function getPackageRepositoryUrl(): string
+    {
+        return 'https://github.com/capsulecmdr/seat-pm';
+    }
+
+    public function getPackagistPackageName(): string
+    {
+        return 'seat-pm';
+    }
+
+    public function getPackagistVendorName(): string
+    {
+        return 'capsulecmdr';
     }
 }
