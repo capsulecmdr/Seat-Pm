@@ -19,7 +19,7 @@ class SeATPMServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Load routes
-        $this->loadRoutesFrom(__DIR__ . '/Providers/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         // Load views
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
