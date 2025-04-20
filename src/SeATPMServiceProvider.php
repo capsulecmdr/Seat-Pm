@@ -15,7 +15,9 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 {
     public function boot(): void
     {
-        $this->addRoutes();
+        // 👇 THIS IS MANDATORY FOR ROUTES TO LOAD in SeAT Plugin system
+        $this->bootRoutes();
+
         $this->addViews();
         $this->addMigrations();
 
@@ -48,11 +50,6 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/config/seatpm.php', 'seatpm');
-    }
-
-    private function addRoutes(): void
-    {
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
     }
 
     private function addViews(): void
