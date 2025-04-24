@@ -19,12 +19,10 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         $this->addViews();
         $this->addMigrations();
 
-        // Register policies
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
-        // Register permissions
         if (function_exists('permission')) {
             permission()->register('seatpm.super', 'View all projects across visibility scopes');
             permission()->register('seatpm.projects.create', 'Create new projects');
