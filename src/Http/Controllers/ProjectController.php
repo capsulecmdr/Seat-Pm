@@ -5,6 +5,7 @@ namespace CapsuleCmdr\SeATPM\Http\Controllers;
 use CapsuleCmdr\SeATPM\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 
 class ProjectController extends Controller
 {
