@@ -13,50 +13,30 @@ use Seat\Services\AbstractSeatPlugin;
 
 class SeATPMServiceProvider extends AbstractSeatPlugin
 {
+    /**
+     * Bootstrap plugin services.
+     */
     public function boot(): void
     {
-        // **Make sure the parent logic runs first!**
-        parent::boot();
-
-        // Load your routes, views & migrations
+        // load our routes, views & migrations
         $this->addRoutes();
         $this->addViews();
         $this->addMigrations();
 
-        // Register your policies
+        // register our policies
         Gate::policy(Project::class, ProjectPolicy::class);
-        Gate::policy(Task::class, TaskPolicy::class);
+        Gate::policy(Task::class,    TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
-
-        // Delay menu/permission registration until after SeAT has booted
-        $this->app->booted(function () {
-            if (function_exists('menu')) {
-                menu()->register('SeAT-PM', [
-                    'name'     => 'SeAT-PM',
-                    'route'    => 'seatpm.projects.index',
-                    'icon'     => 'fas fa-project-diagram',
-                    'children' => [
-                        ['name' => 'Alliance Projects',     'route' => 'seatpm.projects.index', 'params' => ['scope' => 'alliance']],
-                        ['name' => 'Corporation Projects',  'route' => 'seatpm.projects.index', 'params' => ['scope' => 'corporation']],
-                        ['name' => 'Personal Projects',     'route' => 'seatpm.projects.index', 'params' => ['scope' => 'personal']],
-                    ],
-                ]);
-            }
-
-            if (function_exists('permission')) {
-                permission()->register('seatpm.super',           'View all projects across visibility scopes');
-                permission()->register('seatpm.projects.create', 'Create new projects');
-            }
-        });
     }
 
+    /**
+     * Register bindings and configuration.
+     */
     public function register(): void
     {
-        // **Again, let the parent register its stuff first**
-        parent::register();
-
-        // Merge in your config files
+        // merge in plugin config
         $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php',         'seatpm');
+        // merge in sidebar/menu config for SeAT
         $this->mergeConfigFrom(__DIR__ . '/../config/package.sidebar.php', 'package.sidebar');
     }
 
@@ -74,6 +54,8 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
+
+    // Metadata used by SeAT’s plugin registry:
 
     public function getName(): string
     {
