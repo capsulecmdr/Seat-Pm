@@ -7,6 +7,7 @@ use CapsuleCmdr\SeATPM\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Routing\Controller;
 
 class CommentController extends Controller
 {
