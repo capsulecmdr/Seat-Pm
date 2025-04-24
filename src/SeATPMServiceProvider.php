@@ -24,20 +24,6 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
-        // Register menu
-        if (function_exists('menu')) {
-            menu()->register('SeAT-PM', [
-                'name' => 'SeAT-PM',
-                'route' => 'seatpm.projects.index',
-                'icon'  => 'fas fa-project-diagram',
-                'children' => [
-                    ['name' => 'Alliance Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'alliance']],
-                    ['name' => 'Corporation Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'corporation']],
-                    ['name' => 'Personal Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'personal']],
-                ]
-            ]);
-        }
-
         // Register permissions
         if (function_exists('permission')) {
             permission()->register('seatpm.super', 'View all projects across visibility scopes');
