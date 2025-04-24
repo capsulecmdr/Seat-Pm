@@ -37,13 +37,14 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
     {
         // merge in plugin config
         $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php',         'seatpm');
-        // merge in sidebar/menu config for SeAT
-        $this->mergeConfigFrom(__DIR__ . '/../config/package.sidebar.php', 'package.sidebar');
         // **REGISTER YOUR PERMISSIONS**
         $this->registerPermissions(
             __DIR__ . '/../config/Permissions/seatpm.php',
             'seatpm'
         );
+        // merge in sidebar/menu config for SeAT
+        $this->mergeConfigFrom(__DIR__ . '/../config/package.sidebar.php', 'package.sidebar');
+        
     }
 
     private function addRoutes(): void
