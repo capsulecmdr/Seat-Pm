@@ -15,19 +15,14 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 {
     public function boot(): void
     {
-        // Required when using AbstractSeatPlugin for SeAT route loading
-        $this->bootRoutes();
-
-        // Load views and migrations
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'seatpm');
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-
-        // Register policies
+        $this->addRoutes();
+        $this->addViews();
+        $this->addMigrations();
+    
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
-
-        // Register menu items
+    
         if (function_exists('menu')) {
             menu()->register('SeAT-PM', [
                 'name' => 'SeAT-PM',
@@ -40,8 +35,7 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
                 ]
             ]);
         }
-
-        // Register permissions
+    
         if (function_exists('permission')) {
             permission()->register('seatpm.super', 'View all projects across visibility scopes');
             permission()->register('seatpm.projects.create', 'Create new projects');
