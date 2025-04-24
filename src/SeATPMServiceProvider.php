@@ -15,40 +15,48 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 {
     public function boot(): void
     {
+        // **Make sure the parent logic runs first!**
+        parent::boot();
+
+        // Load your routes, views & migrations
         $this->addRoutes();
         $this->addViews();
         $this->addMigrations();
 
+        // Register your policies
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
-        // Delay menu + permission registration until the app is fully booted
+        // Delay menu/permission registration until after SeAT has booted
         $this->app->booted(function () {
             if (function_exists('menu')) {
                 menu()->register('SeAT-PM', [
-                    'name' => 'SeAT-PM',
-                    'route' => 'seatpm.projects.index',
-                    'icon' => 'fas fa-project-diagram',
+                    'name'     => 'SeAT-PM',
+                    'route'    => 'seatpm.projects.index',
+                    'icon'     => 'fas fa-project-diagram',
                     'children' => [
-                        ['name' => 'Alliance Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'alliance']],
-                        ['name' => 'Corporation Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'corporation']],
-                        ['name' => 'Personal Projects', 'route' => 'seatpm.projects.index', 'params' => ['scope' => 'personal']],
-                    ]
+                        ['name' => 'Alliance Projects',     'route' => 'seatpm.projects.index', 'params' => ['scope' => 'alliance']],
+                        ['name' => 'Corporation Projects',  'route' => 'seatpm.projects.index', 'params' => ['scope' => 'corporation']],
+                        ['name' => 'Personal Projects',     'route' => 'seatpm.projects.index', 'params' => ['scope' => 'personal']],
+                    ],
                 ]);
             }
 
             if (function_exists('permission')) {
-                permission()->register('seatpm.super', 'View all projects across visibility scopes');
+                permission()->register('seatpm.super',           'View all projects across visibility scopes');
                 permission()->register('seatpm.projects.create', 'Create new projects');
             }
         });
     }
 
-
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php', 'seatpm');
+        // **Again, let the parent register its stuff first**
+        parent::register();
+
+        // Merge in your config files
+        $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php',         'seatpm');
         $this->mergeConfigFrom(__DIR__ . '/../config/package.sidebar.php', 'package.sidebar');
     }
 
