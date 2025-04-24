@@ -18,11 +18,13 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         $this->addRoutes();
         $this->addViews();
         $this->addMigrations();
-    
+
+        // Register policies
         Gate::policy(Project::class, ProjectPolicy::class);
         Gate::policy(Task::class, TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
-    
+
+        // Register menu
         if (function_exists('menu')) {
             menu()->register('SeAT-PM', [
                 'name' => 'SeAT-PM',
@@ -35,7 +37,8 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
                 ]
             ]);
         }
-    
+
+        // Register permissions
         if (function_exists('permission')) {
             permission()->register('seatpm.super', 'View all projects across visibility scopes');
             permission()->register('seatpm.projects.create', 'Create new projects');
@@ -44,7 +47,22 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/seatpm.php', 'seatpm');
+        $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php', 'seatpm');
+    }
+
+    private function addRoutes(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+    }
+
+    private function addViews(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
+    }
+
+    private function addMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     public function getName(): string
