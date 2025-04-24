@@ -28,14 +28,6 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         Gate::policy(Task::class,    TaskPolicy::class);
         Gate::policy(Comment::class, CommentPolicy::class);
 
-        $this->app->booted(function(){
-          if (function_exists('permission')) {
-            permission()->register('seatpm.projects.index',  'View project list');
-            permission()->register('seatpm.projects.create', 'Create new projects');
-            permission()->register('seatpm.super',           'View all projects across scopes');
-          }
-        });
-
     }
 
     /**
@@ -47,6 +39,11 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
         $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php',         'seatpm');
         // merge in sidebar/menu config for SeAT
         $this->mergeConfigFrom(__DIR__ . '/../config/package.sidebar.php', 'package.sidebar');
+        // **REGISTER YOUR PERMISSIONS**
+        $this->registerPermissions(
+            __DIR__ . '/../config/Permissions/seatpm.php',
+            'seatpm'
+        );
     }
 
     private function addRoutes(): void
