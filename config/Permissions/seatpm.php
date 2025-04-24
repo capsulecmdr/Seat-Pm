@@ -1,78 +1,82 @@
 <?php
-// plugins/seat-pm/config/Permissions/seatpm.php
 
 return [
 
     /*
-     |--------------------------------------------------------------------------
-     | SeAT-PM Permissions
-     |--------------------------------------------------------------------------
-     |
-     | Format:
-     |   '<scope>' => [
-     |     '<permission>' => [
-     |       'label'       => '…',
-     |       'description' => '…',
-     |     ],
-     |     …
-     |   ],
-     |   'super' => …
-     |
-     */
+    |--------------------------------------------------------------------------
+    | SeAT-PM Permissions
+    |--------------------------------------------------------------------------
+    |
+    | These permission definitions use translation tokens for label/description.
+    | Tokens should be defined in resources/lang/en/permissions.php.
+    | The "division" field helps visually group permissions in the SeAT UI.
+    |
+    */
 
-    'projects' => [
-        'index'   => [
-            'label'       => 'View projects',
-            'description' => 'View the list of all projects',
-        ],
-        'create'  => [
-            'label'       => 'Create projects',
-            'description' => 'Add new projects',
-        ],
-        'update'  => [
-            'label'       => 'Update projects',
-            'description' => 'Edit existing projects',
-        ],
-        'delete'  => [
-            'label'       => 'Delete projects',
-            'description' => 'Remove projects',
-        ],
+    'projects.index' => [
+        'label'       => 'permissions.seatpm.projects.index.label',
+        'description' => 'permissions.seatpm.projects.index.description',
+        'division'    => 'industrial',
     ],
 
-    'tasks' => [
-        'create' => [
-            'label'       => 'Add tasks',
-            'description' => 'Add tasks to a project',
-        ],
-        'update' => [
-            'label'       => 'Edit tasks',
-            'description' => 'Edit existing tasks',
-        ],
-        'delete' => [
-            'label'       => 'Delete tasks',
-            'description' => 'Remove tasks',
-        ],
+    'projects.create' => [
+        'label'       => 'permissions.seatpm.projects.create.label',
+        'description' => 'permissions.seatpm.projects.create.description',
+        'division'    => 'industrial',
     ],
 
-    'comments' => [
-        'create' => [
-            'label'       => 'Add comments',
-            'description' => 'Add comments to tasks',
-        ],
-        'update' => [
-            'label'       => 'Edit comments',
-            'description' => 'Edit existing comments',
-        ],
-        'delete' => [
-            'label'       => 'Delete comments',
-            'description' => 'Remove comments',
-        ],
+    'projects.update' => [
+        'label'       => 'permissions.seatpm.projects.update.label',
+        'description' => 'permissions.seatpm.projects.update.description',
+        'division'    => 'industrial',
     ],
 
-    // A “super” permission to bypass everything
+    'projects.delete' => [
+        'label'       => 'permissions.seatpm.projects.delete.label',
+        'description' => 'permissions.seatpm.projects.delete.description',
+        'division'    => 'industrial',
+    ],
+
+    'tasks.create' => [
+        'label'       => 'permissions.seatpm.tasks.create.label',
+        'description' => 'permissions.seatpm.tasks.create.description',
+        'division'    => 'industrial',
+    ],
+
+    'tasks.update' => [
+        'label'       => 'permissions.seatpm.tasks.update.label',
+        'description' => 'permissions.seatpm.tasks.update.description',
+        'division'    => 'industrial',
+    ],
+
+    'tasks.delete' => [
+        'label'       => 'permissions.seatpm.tasks.delete.label',
+        'description' => 'permissions.seatpm.tasks.delete.description',
+        'division'    => 'industrial',
+    ],
+
+    'comments.create' => [
+        'label'       => 'permissions.seatpm.comments.create.label',
+        'description' => 'permissions.seatpm.comments.create.description',
+        'division'    => 'industrial',
+    ],
+
+    'comments.update' => [
+        'label'       => 'permissions.seatpm.comments.update.label',
+        'description' => 'permissions.seatpm.comments.update.description',
+        'division'    => 'industrial',
+    ],
+
+    'comments.delete' => [
+        'label'       => 'permissions.seatpm.comments.delete.label',
+        'description' => 'permissions.seatpm.comments.delete.description',
+        'division'    => 'industrial',
+    ],
+
     'super' => [
-        'label'       => 'Bypass project restrictions',
-        'description' => 'Bypass all project visibility scopes',
+        'label'       => 'permissions.seatpm.super.label',
+        'description' => 'permissions.seatpm.super.description',
+        'division'    => 'industrial',
     ],
 
 ];
