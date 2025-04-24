@@ -3,6 +3,7 @@
 return [
     'seatpm' => [
         'name' => 'SeAT-PM',
+        'permission' => 'seatpm.projects.index',
         'route_segment' => 'seat-pm',            // <-- this is the missing key!
         'icon' => 'fas fa-project-diagram',
         'route' => 'seatpm.projects.index',
