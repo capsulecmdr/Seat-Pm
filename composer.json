@@ -1,5 +1,5 @@
 {
-    "name": "capsulecmdr/seat-pm",
+    "name": "capsulecmdr/Seat-Pm",
     "description": "SeAT-PM: A project management plugin for SeAT enabling personal, corporation, and alliance-level project tracking and task management.",
     "type": "seat-plugin",
     "license": "MIT",
