@@ -47,22 +47,22 @@ class SeATPMServiceProvider extends AbstractSeatPlugin
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/seatpm.php', 'seatpm');
+        $this->mergeConfigFrom(__DIR__ . '/../config/seatpm.php', 'seatpm');
     }
 
     private function addRoutes(): void
     {
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     private function addViews(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'seatpm');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seatpm');
     }
 
     private function addMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     public function getName(): string
