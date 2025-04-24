@@ -1,55 +1,78 @@
 <?php
-// config/Permissions/seatpm.php
+// plugins/seat-pm/config/Permissions/seatpm.php
 
 return [
+
+    /*
+     |--------------------------------------------------------------------------
+     | SeAT-PM Permissions
+     |--------------------------------------------------------------------------
+     |
+     | Format:
+     |   '<scope>' => [
+     |     '<permission>' => [
+     |       'label'       => '…',
+     |       'description' => '…',
+     |     ],
+     |     …
+     |   ],
+     |   'super' => …
+     |
+     */
+
     'projects' => [
-        'index' => [
-            'label' => 'View Projects',
-            'description' => 'View project list',
+        'index'   => [
+            'label'       => 'View projects',
+            'description' => 'View the list of all projects',
         ],
-        'create' => [
-            'label' => 'Create Projects',
-            'description' => 'Create new projects',
+        'create'  => [
+            'label'       => 'Create projects',
+            'description' => 'Add new projects',
         ],
-        'update' => [
-            'label' => 'Update Projects',
-            'description' => 'Update projects',
+        'update'  => [
+            'label'       => 'Update projects',
+            'description' => 'Edit existing projects',
         ],
-        'delete' => [
-            'label' => 'Delete Projects',
-            'description' => 'Delete projects',
+        'delete'  => [
+            'label'       => 'Delete projects',
+            'description' => 'Remove projects',
         ],
     ],
+
     'tasks' => [
         'create' => [
-            'label' => 'Add Tasks',
-            'description' => 'Add tasks to projects',
+            'label'       => 'Add tasks',
+            'description' => 'Add tasks to a project',
         ],
         'update' => [
-            'label' => 'Edit Tasks',
-            'description' => 'Edit tasks',
+            'label'       => 'Edit tasks',
+            'description' => 'Edit existing tasks',
         ],
         'delete' => [
-            'label' => 'Delete Tasks',
+            'label'       => 'Delete tasks',
             'description' => 'Remove tasks',
         ],
     ],
+
     'comments' => [
         'create' => [
-            'label' => 'Add Comments',
-            'description' => 'Add comments',
+            'label'       => 'Add comments',
+            'description' => 'Add comments to tasks',
         ],
         'update' => [
-            'label' => 'Edit Comments',
-            'description' => 'Edit comments',
+            'label'       => 'Edit comments',
+            'description' => 'Edit existing comments',
         ],
         'delete' => [
-            'label' => 'Delete Comments',
+            'label'       => 'Delete comments',
             'description' => 'Remove comments',
         ],
     ],
+
+    // A “super” permission to bypass everything
     'super' => [
-        'label' => 'Master Project Manager',
-        'description' => 'Bypass all project restrictions',
+        'label'       => 'Bypass project restrictions',
+        'description' => 'Bypass all project visibility scopes',
     ],
+
 ];
