@@ -51,6 +51,62 @@
                     </button>
                 @endcan
             </div>
+            <!-- Add Task Modal -->
+            <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <form method="POST" action="{{ route('seatpm.tasks.store', $project->id) }}">
+                    @csrf
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">➕ New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="task-title" class="form-label">Title</label>
+                        <input type="text" name="title" id="task-title" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-description" class="form-label">Description</label>
+                        <textarea name="description" id="task-description" class="form-control" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="task-status" class="form-label">Status</label>
+                        <select name="status" id="task-status" class="form-select" required>
+                        <option value="Backlog">Backlog</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Blocked">Blocked</option>
+                        <option value="Complete">Complete</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="target-start" class="form-label">Target Start Date</label>
+                        <input type="date" name="target_start_date" id="target-start" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="target-completion" class="form-label">Target Completion Date</label>
+                        <input type="date" name="target_completion_date" id="target-completion" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="budget-cost" class="form-label">Budget Cost (ISK)</label>
+                        <input type="number" name="budget_cost" id="budget-cost" class="form-control" min="0" step="0.01">
+                    </div>
+                    </div>
+
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Create Task</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+
 
             @if($project->tasks->isEmpty())
                 <div class="alert alert-info">
