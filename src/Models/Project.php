@@ -27,7 +27,7 @@ class Project extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\Seat\Web\Models\User::class, 'user_id');
     }
 
     /**
