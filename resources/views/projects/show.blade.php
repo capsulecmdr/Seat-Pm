@@ -44,8 +44,20 @@
 
         {{-- Tasks View --}}
         <div class="tab-pane fade show active" id="tasks" role="tabpanel">
+            <div class="d-flex justify-content-end mb-3">
+                @can('create', CapsuleCmdr\SeATPM\Models\Task::class)
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                        ➕ Add Task
+                    </button>
+                @endcan
+            </div>
+
             @include('seatpm::tasks.index', ['project' => $project])
+
+            {{-- Add Task Modal --}}
+            @include('seatpm::tasks.create', ['project' => $project])
         </div>
+
 
         {{-- Gantt Chart --}}
         <div class="tab-pane fade" id="gantt" role="tabpanel">
