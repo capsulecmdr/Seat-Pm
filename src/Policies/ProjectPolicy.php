@@ -3,7 +3,7 @@
 namespace CapsuleCmdr\SeATPM\Policies;
 
 use CapsuleCmdr\SeATPM\Models\Project;
-use App\Models\User;
+use Seat\Web\Models\User;
 
 class ProjectPolicy
 {
