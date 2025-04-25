@@ -12,7 +12,7 @@ class TaskPolicy
      */
     public function before(User $user, $ability): bool|null
     {
-        return $user->hasPermissionTo('seatpm.super') ? true : null;
+        return $user->can('seatpm.super') ? true : null;
     }
 
     /**

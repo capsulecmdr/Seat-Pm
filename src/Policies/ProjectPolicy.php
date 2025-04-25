@@ -12,7 +12,7 @@ class ProjectPolicy
      */
     public function before(User $user, $ability): bool|null
     {
-        return $user->hasPermissionTo('seatpm.super') ? true : null;
+        return $user->can('seatpm.super') ? true : null;
     }
 
     /**
@@ -33,7 +33,7 @@ class ProjectPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('seatpm.projects.create');
+        return $user->can('seatpm.projects.create');
     }
 
     /**

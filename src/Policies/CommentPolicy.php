@@ -12,7 +12,7 @@ class CommentPolicy
      */
     public function update(User $user, Comment $comment): bool
     {
-        return $user->id === $comment->user_id || $user->hasPermissionTo('seatpm.super');
+        return $user->id === $comment->user_id || $user->can('seatpm.super');
     }
 
     /**
@@ -20,6 +20,6 @@ class CommentPolicy
      */
     public function delete(User $user, Comment $comment): bool
     {
-        return $user->id === $comment->user_id || $user->hasPermissionTo('seatpm.super');
+        return $user->id === $comment->user_id || $user->can('seatpm.super');
     }
 }
