@@ -29,8 +29,17 @@
 
         <div class="mb-3">
             <label for="target_completion_date" class="form-label">Target Completion Date</label>
-            <input type="date" name="target_completion_date" id="target_completion_date" class="form-control" value="{{ old('target_completion_date', $project->target_completion_date ? $project->target_completion_date->format('Y-m-d') : '') }}">
+
+            @php
+                $target_date = $project->target_completion_date instanceof \Illuminate\Support\Carbon
+                    ? $project->target_completion_date->format('Y-m-d')
+                    : (is_string($project->target_completion_date) ? $project->target_completion_date : '');
+            @endphp
+
+            <input type="date" name="target_completion_date" id="target_completion_date" class="form-control"
+                value="{{ old('target_completion_date', $target_date) }}">
         </div>
+
 
         <div class="mb-3">
             <label for="target_budget" class="form-label">Target Budget (ISK)</label>
