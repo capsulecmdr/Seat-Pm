@@ -6,9 +6,11 @@ use CapsuleCmdr\SeATPM\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProjectController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a list of projects filtered by visibility scope.
      */
