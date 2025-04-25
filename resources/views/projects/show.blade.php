@@ -52,7 +52,73 @@
                 @endcan
             </div>
 
-            @include('seatpm::tasks.index', ['project' => $project])
+            @if($project->tasks->isEmpty())
+                <div class="alert alert-info">
+                    No tasks have been created for this project yet.
+                </div>
+            @else
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Target Completion</th>
+                                <th>Budget</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($project->tasks as $task)
+                                <tr>
+                                    <td>{{ $task->title }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            @if($task->status === 'Complete') bg-success
+                                            @elseif($task->status === 'In Progress') bg-primary
+                                            @elseif($task->status === 'Blocked') bg-danger
+                                            @else bg-secondary
+                                            @endif
+                                        ">
+                                            {{ $task->status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div 
+                                                class="progress-bar" 
+                                                role="progressbar" 
+                                                style="width: {{ $task->percent_complete ?? 0 }}%;" 
+                                                aria-valuenow="{{ $task->percent_complete ?? 0 }}" 
+                                                aria-valuemin="0" 
+                                                aria-valuemax="100"
+                                            >
+                                                {{ $task->percent_complete ?? 0 }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ $task->target_completion_date ? \Illuminate\Support\Carbon::parse($task->target_completion_date)->format('Y-m-d') : 'N/A' }}</td>
+                                    <td>{{ $task->budget_cost ? number_format($task->budget_cost, 2) . ' ISK' : 'N/A' }}</td>
+                                    <td>
+                                        {{-- You can expand actions later --}}
+                                        <div class="btn-group" role="group">
+                                            <form method="POST" action="{{ route('seatpm.tasks.destroy', $task->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">
+                                                    🗑️ Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+
 
             {{-- Add Task Modal --}}
             @include('seatpm::tasks.create', ['project' => $project])
