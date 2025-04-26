@@ -42,9 +42,10 @@
         <div class="tab-pane fade show active" id="tasks" role="tabpanel">
             <div class="d-flex justify-content-end mb-3">
                 @can('create', CapsuleCmdr\SeATPM\Models\Task::class)
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-                        ➕ Add Task
-                    </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal">
+                    ➕ Add Task
+                </button>
+
                 @endcan
             </div>
 
