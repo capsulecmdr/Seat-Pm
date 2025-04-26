@@ -1,9 +1,14 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const ganttElement = document.getElementById('gantt-target');
 
     if (!ganttElement) return;
 
     const tasks = JSON.parse(ganttElement.dataset.tasks);
+
+    if (!Array.isArray(tasks)) {
+        console.error('Invalid Gantt tasks data:', tasks);
+        return;
+    }
 
     const formattedTasks = tasks.map(task => ({
         id: task.id,
@@ -17,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new Gantt('#gantt-target', formattedTasks, {
         view_mode: 'Week',
         date_format: 'YYYY-MM-DD',
-        custom_popup_html: null
+        custom_popup_html: null,
     });
 });
 

@@ -1,17 +1,18 @@
 <div class="row">
-    @foreach (['Backlog', 'In Progress', 'Blocked', 'Complete'] as $status)
+    @foreach(['Backlog', 'In Progress', 'Blocked', 'Complete'] as $status)
         <div class="col-md-3">
-            <div class="card mb-3">
-                <div class="card-header text-center">{{ $status }}</div>
-                <div class="card-body" id="kanban-{{ strtolower(str_replace(' ', '-', $status)) }}">
-                    @foreach ($project->tasks->where('status', $status) as $task)
-                        <div class="card mb-2">
-                            <div class="card-body p-2">
-                                <strong>{{ $task->title }}</strong>
-                                <div class="text-muted small">{{ $task->percent_complete }}%</div>
+            <div class="card">
+                <div class="card-header text-center">
+                    {{ $status }}
+                </div>
+                <div class="card-body kanban-column" data-status="{{ $status }}">
+                    <div class="kanban-items">
+                        @foreach($project->tasks->where('status', $status) as $task)
+                            <div class="kanban-task card mb-2 p-2" data-task-id="{{ $task->id }}">
+                                {{ $task->title }}
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
