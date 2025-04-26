@@ -156,7 +156,14 @@
                                     <td>{{ $task->budget_cost ? number_format($task->budget_cost, 2) . ' ISK' : 'N/A' }}</td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <form method="POST" action="{{ route('seatpm.tasks.destroy', $task->id) }}">
+                                            
+                                            {{-- Edit Button --}}
+                                            <a href="{{ route('seatpm.tasks.edit', $task->id) }}" class="btn btn-sm btn-outline-primary">
+                                                ✏️ Edit
+                                            </a>
+
+                                            {{-- Delete Form --}}
+                                            <form method="POST" action="{{ route('seatpm.tasks.destroy', $task->id) }}" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">

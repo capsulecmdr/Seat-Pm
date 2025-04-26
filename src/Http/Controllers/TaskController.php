@@ -120,4 +120,12 @@ class TaskController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function edit(Task $task)
+    {
+        $this->authorize('update', $task->project);
+
+        return view('seatpm::tasks.edit', compact('task'));
+    }
+
 }

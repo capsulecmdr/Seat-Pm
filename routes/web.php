@@ -25,6 +25,7 @@ Route::group([
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
     Route::post('/tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
+    Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('seatpm.tasks.edit');
 
     // Comment Routes
     Route::post('/tasks/{task}/comments', [CommentController::class, 'store'])->name('comments.store');
