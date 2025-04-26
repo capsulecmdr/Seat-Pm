@@ -174,10 +174,7 @@
                     </table>
                 </div>
             @endif
-
-
-            {{-- Add Task Modal --}}
-            @include('seatpm::tasks.create', ['project' => $project])
+            
         </div>
 
 
