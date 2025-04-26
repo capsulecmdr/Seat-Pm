@@ -1,6 +1,4 @@
-import Gantt from 'frappe-gantt';
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
     const ganttElement = document.getElementById('gantt-target');
 
     if (!ganttElement) return;
@@ -16,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         custom_class: getStatusClass(task.status),
     }));
 
-    const gantt = new Gantt('#gantt-target', formattedTasks, {
+    new Gantt('#gantt-target', formattedTasks, {
         view_mode: 'Week',
         date_format: 'YYYY-MM-DD',
-        custom_popup_html: null, // You can add a popup function here if needed
+        custom_popup_html: null
     });
 });
 

@@ -41,12 +41,9 @@
         {{-- Tasks View --}}
         <div class="tab-pane fade show active" id="tasks" role="tabpanel">
             <div class="d-flex justify-content-end mb-3">
-                @can('create', CapsuleCmdr\SeATPM\Models\Task::class)
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
                     ➕ Add Task
                 </button>
-
-                @endcan
             </div>
 
             {{-- Add Task Modal --}}
@@ -105,7 +102,7 @@
                 </div>
             </div>
 
-            {{-- Task List --}}
+            {{-- Tasks Table --}}
             @if($project->tasks->isEmpty())
                 <div class="alert alert-info">
                     No tasks have been created for this project yet.
@@ -155,22 +152,14 @@
                                     <td>{{ $task->target_completion_date ? \Illuminate\Support\Carbon::parse($task->target_completion_date)->format('Y-m-d') : 'N/A' }}</td>
                                     <td>{{ $task->budget_cost ? number_format($task->budget_cost, 2) . ' ISK' : 'N/A' }}</td>
                                     <td>
-                                        <div class="btn-group" role="group">
-                                            
-                                            {{-- Edit Button --}}
-                                            <a href="{{ route('seatpm.tasks.edit', $task->id) }}" class="btn btn-sm btn-outline-primary">
-                                                ✏️ Edit
-                                            </a>
-
-                                            {{-- Delete Form --}}
-                                            <form method="POST" action="{{ route('seatpm.tasks.destroy', $task->id) }}" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">
-                                                    🗑️ Delete
-                                                </button>
-                                            </form>
-                                        </div>
+                                        {{-- Actions --}}
+                                        <form method="POST" action="{{ route('seatpm.tasks.destroy', $task->id) }}" style="display:inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this task?')">
+                                                🗑️ Delete
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -198,8 +187,10 @@
     </div>
 </div>
 
-{{-- Include Gantt + Kanban Scripts --}}
+{{-- Scripts --}}
 @push('scripts')
+<link rel="stylesheet" href="https://unpkg.com/frappe-gantt/dist/frappe-gantt.css">
+<script src="https://unpkg.com/frappe-gantt/dist/frappe-gantt.min.js"></script>
 <script src="{{ asset('vendor/seatpm/js/gantt.js') }}"></script>
 <script src="{{ asset('vendor/seatpm/js/kanban.js') }}"></script>
 @endpush

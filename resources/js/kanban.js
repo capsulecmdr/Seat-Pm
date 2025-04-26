@@ -36,19 +36,31 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function updateTaskStatus(taskId, newStatus) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     fetch(`/seat-pm/tasks/${taskId}/status`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json'
         },
         body: JSON.stringify({ status: newStatus })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        console.log(`Task ${taskId} updated to ${newStatus}`);
+        if (data.success) {
+            console.log(`✅ Task ${taskId} successfully updated to ${newStatus}.`);
+        } else {
+            console.error('❌ Server returned failure:', data);
+        }
     })
     .catch(error => {
-        console.error('Error updating task status:', error);
+        console.error('❌ Error updating task status:', error);
     });
 }
