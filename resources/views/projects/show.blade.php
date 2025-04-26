@@ -22,27 +22,28 @@
 
     {{-- View Tabs --}}
     <ul class="nav nav-tabs mb-4" id="projectTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="tasks-tab" data-bs-toggle="tab" data-bs-target="#tasks" type="button" role="tab" aria-controls="tasks" aria-selected="true">
+        <li class="nav-item">
+            <a class="nav-link active" id="tasks-tab" data-toggle="tab" href="#tasks" role="tab" aria-controls="tasks" aria-selected="true">
                 📝 Tasks
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="gantt-tab" data-bs-toggle="tab" data-bs-target="#gantt" type="button" role="tab" aria-controls="gantt" aria-selected="false">
+        <li class="nav-item">
+            <a class="nav-link" id="gantt-tab" data-toggle="tab" href="#gantt" role="tab" aria-controls="gantt" aria-selected="false">
                 📆 Gantt Chart
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="kanban-tab" data-bs-toggle="tab" data-bs-target="#kanban" type="button" role="tab" aria-controls="kanban" aria-selected="false">
+        <li class="nav-item">
+            <a class="nav-link" id="kanban-tab" data-toggle="tab" href="#kanban" role="tab" aria-controls="kanban" aria-selected="false">
                 📋 Kanban Board
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline" type="button" role="tab" aria-controls="timeline" aria-selected="false">
+        <li class="nav-item">
+            <a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline" aria-selected="false">
                 📜 Activity
-            </button>
+            </a>
         </li>
     </ul>
+
 
 
     <div class="tab-content" id="projectTabContent">
